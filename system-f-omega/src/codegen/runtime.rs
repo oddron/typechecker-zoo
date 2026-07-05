@@ -166,7 +166,9 @@ fn compile_make_closure<M: Module>(
 
     builder.switch_to_block(then_block0);
     builder.seal_block(then_block0);
-    builder.ins().store(MemFlagsData::new(), cap0, closure_ptr, 16);
+    builder
+        .ins()
+        .store(MemFlagsData::new(), cap0, closure_ptr, 16);
     builder.ins().jump(merge_block0, &[]);
 
     builder.switch_to_block(merge_block0);
@@ -183,7 +185,9 @@ fn compile_make_closure<M: Module>(
 
     builder.switch_to_block(then_block1);
     builder.seal_block(then_block1);
-    builder.ins().store(MemFlagsData::new(), cap1, closure_ptr, 24);
+    builder
+        .ins()
+        .store(MemFlagsData::new(), cap1, closure_ptr, 24);
     builder.ins().jump(merge_block1, &[]);
 
     builder.switch_to_block(merge_block1);
@@ -237,7 +241,9 @@ fn compile_project_env<M: Module>(module: &mut M, pointer_type: Type) -> Result<
     let addr = builder.ins().iadd(closure_ptr, offset);
 
     // Load the value
-    let value = builder.ins().load(pointer_type, MemFlagsData::new(), addr, 0);
+    let value = builder
+        .ins()
+        .load(pointer_type, MemFlagsData::new(), addr, 0);
     builder.ins().return_(&[value]);
 
     builder.finalize();
